@@ -1,0 +1,234 @@
+/* Container & background */
+.news-section {
+  max-width: 1200px;
+  margin: 80px auto;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  user-select: none;
+  padding: 0 20px;
+}
+
+.news-title {
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 500;
+  font-size: 2.3rem;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.news-title::before,
+.news-title::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: white;
+  opacity: 0.25;
+}
+
+.news-title::before {
+  left: calc(50% - 100px);
+}
+
+.news-title::after {
+  right: calc(50% - 100px);
+}
+
+/* Flex container */
+.news-slider-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Slider */
+.slider {
+  position: relative;
+  width: 540px;
+  height: 310px;
+  background: #000000aa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Hide radio inputs */
+.slider input[type="radio"] {
+  display: none;
+}
+
+/* Slides container */
+.slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual slides */
+.slide {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.8s ease-in-out;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Slide Logo */
+.slide-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  font-family: 'Georgia', serif;
+}
+
+/* Show slides when corresponding radio checked */
+#slide1:checked ~ .slides .s1,
+#slide2:checked ~ .slides .s2,
+#slide3:checked ~ .slides .s3,
+#slide4:checked ~ .slides .s4 {
+  opacity: 1;
+  position: relative; /* To stack on top */
+  z-index: 10;
+}
+
+/* Slider navigation dots */
+.slider-dots {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  text-align: center;
+  z-index: 20;
+}
+
+.slider-dots .dot {
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  margin: 0 6px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#slide1:checked ~ .slider-dots label[for="slide1"],
+#slide2:checked ~ .slider-dots label[for="slide2"],
+#slide3:checked ~ .slider-dots label[for="slide3"],
+#slide4:checked ~ .slider-dots label[for="slide4"] {
+  background: #eb9834;
+}
+
+/* News List */
+.news-list {
+  flex: 1;
+  max-width: 500px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 8px;
+  padding: 30px 30px 40px;
+  box-sizing: border-box;
+  height: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.latest-title {
+  border-bottom: 2px solid #eb9834;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+}
+
+.news-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  max-height: calc(100% - 80px);
+}
+
+.news-list ul::-webkit-scrollbar {
+  width: 7px;
+}
+
+.news-list ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-list ul::-webkit-scrollbar-thumb {
+  background: #eb9834;
+  border-radius: 10px;
+}
+
+.news-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  transition: color 0.3s ease;
+}
+
+.news-list li:last-child {
+  border-bottom: none;
+}
+
+.news-list li a {
+  color: #ddd;
+  text-decoration: none;
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+}
+
+.news-list li a:hover {
+  color: #eb9834;
+}
+
+.news-list span {
+  flex-shrink: 0;
+  color: #999;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* More button */
+.more-link {
+  color: #eb9834;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  align-self: flex-end;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.more-link:hover {
+  text-decoration: underline;
+}
