@@ -1,7 +1,7 @@
- <?= $this->extend('Backend\Views\templates\content') ?>
+<?= $this->extend('Backend\Views\templates\content') ?>
 
-<?php 
-    $name = session()->get('name');
+<?php
+$name = session()->get('name');
 ?>
 
 <?= $this->section('content') ?>
@@ -12,7 +12,7 @@
 
     <section class="content">
         <div class="box box-primary">
-            <form action="<?= base_url('admin/news/store'); ?>" method="post">
+            <form action="<?= base_url('admin/news/store'); ?>" method="post" enctype="multipart/form-data">
                 <div class="box-body">
 
                     <div class="form-group">
@@ -23,6 +23,11 @@
                     <div class="form-group">
                         <label>Slug</label>
                         <input type="text" name="slug" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
 
                     <div class="form-group">
@@ -41,4 +46,4 @@
     </section>
 </div>
 
-  <?= $this->endSection() ?>
+<?= $this->endSection() ?>

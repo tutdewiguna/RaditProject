@@ -6,9 +6,25 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index', ['namespace' => 'Frontend\Controllers']);
-$routes->get('shop', 'Home::shop', ['namespace' => 'Frontend\Controllers']);
+// Shop Routes
+$routes->get('shop', 'Shop::index', ['namespace' => 'Frontend\Controllers']);
+$routes->get('shop/(:segment)', 'Shop::detail/$1', ['namespace' => 'Frontend\Controllers']);
+$routes->addRedirect('product/(:segment)', 'shop/$1');
+$routes->addRedirect('product', 'shop');
+
+// Cart Routes
+$routes->get('cart', 'Cart::index', ['namespace' => 'Frontend\Controllers']);
+$routes->post('cart/add', 'Cart::add', ['namespace' => 'Frontend\Controllers']);
+$routes->get('cart/remove/(:num)', 'Cart::remove/$1', ['namespace' => 'Frontend\Controllers']);
+
+// Checkout Routes
+$routes->get('checkout', 'Checkout::index', ['namespace' => 'Frontend\Controllers']);
+$routes->post('checkout/process', 'Checkout::process', ['namespace' => 'Frontend\Controllers']);
+
 $routes->get('contact', 'Home::contact', ['namespace' => 'Frontend\Controllers']);
-$routes->get('news', 'Home::news', ['namespace' => 'Frontend\Controllers']);
+$routes->get('news', 'NewsController::index', ['namespace' => 'Frontend\Controllers']);
+$routes->get('news/(:segment)', 'NewsController::detail/$1', ['namespace' => 'Frontend\Controllers']);
+
 
 $routes->get('/register', 'Auth::register', ['namespace' => 'Frontend\Controllers']);
 $routes->post('/register', 'Auth::attemptRegister', ['namespace' => 'Frontend\Controllers']);
@@ -25,12 +41,12 @@ $routes->group('admin', ['namespace' => 'Backend\Controllers'], function ($route
 
 $routes->group('admin/home', [
     'namespace' => 'Backend\Controllers',
-    'filter'    => 'adminAuth:admin'
+    'filter' => 'adminAuth:admin'
 ], function ($routes) {
     $routes->get('/', 'Home::index');
 });
 
-$routes->group('admin', ['namespace' => 'Backend\Controllers', 'filter' => 'adminAuth:admin'], function($routes) {
+$routes->group('admin', ['namespace' => 'Backend\Controllers', 'filter' => 'adminAuth:admin'], function ($routes) {
     $routes->get('/', 'Home::index'); // dashboard admin
     $routes->get('products', 'ProductsController::index');
     $routes->get('products/create', 'ProductsController::create');

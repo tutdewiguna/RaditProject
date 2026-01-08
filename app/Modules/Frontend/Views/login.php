@@ -1,36 +1,32 @@
-<?= $this->extend('Frontend\Views\templates\content') ?>
+<?= $this->extend('Frontend\Templates\Content') ?>
 
 <?= $this->section('content') ?>
-    
-    <div class="section bg-transparent min-vh-100 p-0 m-0 d-flex">
-        <div class="vertical-middle">
-            <div class="container py-5">
-                <div class="card mx-auto rounded-0 border-0" style="max-width: 400px;">
-                    <div class="card-body" style="padding: 40px; border: 1px solid #EEE;">
-                        <form id="login-form" name="login-form" class="mb-0" action="<?= base_url('/login') ?>" method="post">
-                            <?= csrf_field() ?>
-                            <h3>Login to your Account</h3>
 
-                            <div class="row">
-                                <div class="col-12 form-group">
-                                    <label for="login-form-username">email:</label>
-                                    <input type="text" id="login-form-username" name="email" value="" class="form-control not-dark" />
-                                </div>
+<div class="container section" style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+    <div class="auth-box" style="width: 100%; max-width: 420px; padding: 40px; border: 1px solid #e5e5e5;">
+        <h3 class="text-center mb-4" style="margin-bottom: 30px;">Login</h3>
 
-                                <div class="col-12 form-group">
-                                    <label for="login-form-password">Password:</label>
-                                    <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
-                                </div>
+        <form action="<?= base_url('/login') ?>" method="post">
+            <?= csrf_field() ?>
 
-                                <div class="col-12 form-group mb-0">
-                                    <button class="button button-3d button-black m-0" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                                    <a href="<?= base_url('/register') ?>" class="float-end">Register?</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="text" name="email" class="form-control" required>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">Sign In</button>
+
+            <div class="text-center">
+                <a href="<?= base_url('/register') ?>"
+                    style="font-size: 14px; color: #666; text-decoration: underline;">Create an account</a>
+            </div>
+        </form>
     </div>
+</div>
+
 <?= $this->endSection() ?>

@@ -18,10 +18,13 @@ class AdminAuthFilter implements FilterInterface
                     break;
             }
         }
-        if (!session()->get('isAdminLoggedIn') || !in_array(session()->get('role_id'), $allowedRoles)) {
-            return redirect()->to('/admin');
+        // Check for specific admin session keys to prevent overlap with frontend user sessions
+        if (!session()->get('isAdminLoggedIn') || session()->get('role_id') != 1) {
+            return redirect()->to('/admin/login');
         }
     }
 
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
+    }
 }

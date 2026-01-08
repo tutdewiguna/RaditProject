@@ -1,24 +1,22 @@
 <footer class="footer">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
-					<ul>
-						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-			</div>
+		<div class="footer-links">
+			<a href="<?= base_url('shop') ?>" class="footer-link">Shop</a>
+			<a href="<?= base_url('news') ?>" class="footer-link">News</a>
+			<a href="<?= base_url('contact') ?>" class="footer-link">Contact</a>
+			<a href="#" class="footer-link">Terms</a>
+			<a href="#" class="footer-link">Privacy</a>
 		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="footer_nav_container">
-					<div class="cr">©2020 Outfitr Copyright.<i class="fa fa-heart-o" aria-hidden="true"></i>  <a href="#"></a>  </div>
-				</div>
-			</div>
+
+		<div class="flex justify-center gap-4 mb-4">
+			<a href="#"><i class="fa fa-facebook"></i></a>
+			<a href="#"><i class="fa fa-twitter"></i></a>
+			<a href="#"><i class="fa fa-instagram"></i></a>
+		</div>
+
+		<div class="copyright">
+			©
+			<?= date('Y') ?> OutfiTR. All rights reserved.
 		</div>
 	</div>
 </footer>

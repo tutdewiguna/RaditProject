@@ -27,12 +27,20 @@ class NewsController extends BaseController
 
     public function store()
     {
-        $this->newsModel->save([
+        $data = [
             'title' => $this->request->getPost('title'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),
-            'image' => $this->request->getPost('image'),
-        ]);
+        ];
+
+        $image = $this->request->getFile('image');
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $image->move(FCPATH . 'uploads/news', $newName);
+            $data['image'] = 'uploads/news/' . $newName;
+        }
+
+        $this->newsModel->save($data);
         return redirect()->to('admin/news');
     }
 
@@ -44,12 +52,20 @@ class NewsController extends BaseController
 
     public function update($id)
     {
-        $this->newsModel->update($id, [
+        $data = [
             'title' => $this->request->getPost('title'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),
-            'image' => $this->request->getPost('image'),
-        ]);
+        ];
+
+        $image = $this->request->getFile('image');
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newName = $image->getRandomName();
+            $image->move(FCPATH . 'uploads/news', $newName);
+            $data['image'] = 'uploads/news/' . $newName;
+        }
+
+        $this->newsModel->update($id, $data);
         return redirect()->to('admin/news');
     }
 

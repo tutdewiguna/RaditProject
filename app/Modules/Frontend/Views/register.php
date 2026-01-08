@@ -1,56 +1,53 @@
-<?= $this->extend('Frontend\Views\templates\content') ?>
+<?= $this->extend('Frontend\Templates\Content') ?>
 
 <?= $this->section('content') ?>
-    
-    <div class="section bg-transparent min-vh-100 p-0 m-0 d-flex">
-        <div class="vertical-middle">
-            <div class="container py-5">
-                <div class="card mx-auto rounded-0 border-0" style="max-width: 400px;">
-                    <div class="card-body" style="padding: 40px; border: 1px solid #EEE;">
-                        <form id="login-form" name="login-form" class="mb-0" action="<?= base_url('/register') ?>" method="post">
-                            <?= csrf_field() ?>
-                            <h3>Register your Account</h3>
 
-                            <?php if (session()->getFlashdata('errors')) : ?>
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        <?php foreach (session()->getFlashdata('errors') as $error) : ?>
-                                            <li><?= esc($error) ?></li>
-                                        <?php endforeach ?>
-                                    </ul>
-                                </div>
-                            <?php endif ?>
+<div class="container section" style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+    <div class="auth-box" style="width: 100%; max-width: 420px; padding: 40px; border: 1px solid #e5e5e5;">
+        <h3 class="text-center mb-4" style="margin-bottom: 30px;">Create Account</h3>
 
-                            <div class="row">
-                                <div class="col-12 form-group">
-                                    <label for="login-form-name">Name:</label>
-                                    <input type="text" id="login-form-name" name="name" value="" class="form-control not-dark" />
-                                </div>
-
-                                <div class="col-12 form-group">
-                                    <label for="login-form-username">Email:</label>
-                                    <input type="text" id="login-form-username" name="email" value="" class="form-control not-dark" />
-                                </div>
-
-                                <div class="col-12 form-group">
-                                    <label for="login-form-password">Password:</label>
-                                    <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
-                                </div>
-
-                                <div class="col-12 form-group">
-                                    <label for="login-form-password">Confirm Password:</label>
-                                    <input type="password" id="login-form-password" name="confirmpassword" value="" class="form-control not-dark" />
-                                </div>
-
-                                <div class="col-12 form-group mb-0">
-                                    <button class="button button-3d button-black m-0" id="login-form-submit" name="login-form-submit" value="login">Register</button>
-                                    <a href="<?= base_url('/login') ?>" class="float-end">Login?</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <?php if (session()->getFlashdata('errors')): ?>
+            <div style="background: #fef2f2; color: #991b1b; padding: 12px; margin-bottom: 24px; font-size: 13px;">
+                <ul style="padding-left: 20px; margin: 0;">
+                    <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
             </div>
-        </div>
+        <?php endif ?>
+
+        <form action="<?= base_url('/register') ?>" method="post">
+            <?= csrf_field() ?>
+
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" name="confirmpassword" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">Register</button>
+
+            <div class="text-center">
+                <span style="color: #666; font-size: 14px;">Already have an account?</span>
+                <a href="<?= base_url('/login') ?>"
+                    style="font-size: 14px; color: #000; text-decoration: underline; margin-left: 5px;">Login</a>
+            </div>
+        </form>
     </div>
+</div>
+
 <?= $this->endSection() ?>

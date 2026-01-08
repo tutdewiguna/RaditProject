@@ -1,290 +1,200 @@
-<?= $this->extend('Frontend\Views\Templates\Content') ?>
+<?= $this->extend('Frontend\Templates\Content') ?>
 
-<!-- Load Slider Section -->
+
+
 <?= $this->section('slider') ?>
-<!-- REQUIRED FOR ALL PAGES -->
-<!-- ####################################################################################### EGE----MODIFIED -->
-<!-- NAVIGATOR -->
-<div class="main_slider">
-	<div class="swiper-container">
-		<div class="swiper-wrapper">
+<div class="hero" id="heroSlider">
+    <!-- Slider Wrapper -->
+    <div class="hero-slides">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" style="background-image: url('<?= base_url('images/slider_1.jpg') ?>');"></div>
+        <!-- Slide 2 -->
+        <div class="hero-slide" style="background-image: url('<?= base_url('images/slider_2.jpg') ?>');"></div>
+        <!-- Slide 3 -->
+        <div class="hero-slide" style="background-image: url('<?= base_url('images/example3.jpg') ?>');"></div>
+    </div>
 
-			<!-- Slide 1 -->
-			<div class="swiper-slide" style="background-image:url(images/example3.jpg)">
-				<section class="showcase">
-					<div class="video-container">
-						<a href="categories.html">
-							<video src="videos/main_page_slider_video.mp4" autoplay muted loop></video>
-						</a>
-					</div>
-					<div class="content">
-						<br><br><br><br><br><br><br><br><br><br>
-						<h6 style="color:white">
-							<a href="index.html" style="color:white; font-size:18px; font-family:Cormorant Garamond, Georgia, serif;">
-								<small>Autumn / Winter Collection - 2025</small>
-							</a>
-						</h6>
-						<h1 style="color:white">
-							<a href="categories.html" style="color:white; font-size:100px; font-family:Cormorant Garamond, Georgia, serif;">OUTFITR</a>
-						</h1>
-					</div>
-				</section>
-			</div>
+    <!-- Content Overlay -->
+    <div class="hero-content-wrapper">
+        <div class="hero-content">
+            <h5 style="margin-bottom: 12px; font-weight: 500; letter-spacing: 0.1em; font-size: 13px;">AUTUMN / WINTER
+                2025</h5>
+            <h1 style="margin-bottom: 24px; font-weight: 600; font-size: 3.5rem; letter-spacing: -0.02em;">New Season
+                Essentials</h1>
+            <a href="<?= base_url('shop') ?>" class="btn btn-primary"
+                style="background: #000; color: #fff; border: 1px solid #000; padding: 14px 32px;">Shop Collection</a>
+        </div>
+    </div>
 
-			<!-- Slide 2 -->
-			<div class="swiper-slide" style="background-image:url(images/example3.jpg)"></div>
-
-			<!-- Slide 3 -->
-			<div class="swiper-slide" style="background-image:url(images/example1.jpg)"></div>
-
-		</div>
-
-		<!-- Navigation -->
-		<div class="swiper-scrollbar"></div>
-		<div class="swiper-button-next" style="color:#fe4c50"></div>
-		<div class="swiper-button-prev" style="color:#fe4c50"></div>
-	</div>
+    <!-- Controls -->
+    <div class="hero-controls">
+        <button class="hero-prev" aria-label="Previous slide">&lsaquo;</button>
+        <button class="hero-next" aria-label="Next slide">&rsaquo;</button>
+    </div>
+    <div class="hero-dots"></div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const slider = document.querySelector('#heroSlider');
+        if (!slider) return;
+
+        const slides = slider.querySelectorAll('.hero-slide');
+        const prevBtn = slider.querySelector('.hero-prev');
+        const nextBtn = slider.querySelector('.hero-next');
+        const dotsContainer = slider.querySelector('.hero-dots');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('hero-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.hero-dot');
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = (index + totalSlides) % totalSlides;
+            updateSlides();
+            resetInterval();
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Event Listeners
+        if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+
+        // Start Autoplay
+        resetInterval();
+    });
+</script>
 <?= $this->endSection() ?>
 
-<!-- Load Content Section -->
 <?= $this->section('content') ?>
 
-<!-- ABOUT US SECTION -->
-<div class="about pt-5 pb-5" style="background:#ffffff;">
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <div class="section_title">
-                    <h2>ABOUT US</h2>
-                </div>
-                <p style="max-width: 750px; margin: 15px auto; font-size: 18px; color: #555;">
-                    Welcome to OUTFITR, the place for modern fashion for those who want to look stylish every day. We offer a collection of women's, men's, and accessories with selected quality and the latest trends. Each product is designed to make you comfortable, unique, and confident in every moment. Discover new styles and express yourself with OUTFITR.
-                    Fashion is not just about clothes. It's about you.
-                </p>
-            </div>
-        </div>
+<!-- Featured / New Arrivals -->
+<div class="container section">
+    <div class="section-title">
+        <h2>New Arrivals</h2>
+        <p>Curated pieces for the modern wardrobe.</p>
     </div>
-</div>
 
-<!-- ####################################################################################### EGE----MODIFIED -->
-<!-- CATEGORIES -->
-
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="banner_item align-items-center" style="background-image:url(images/banner_1.jpg)">
-                    <div class="banner_category">
-                        <a href="categories.html">WOMEN</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="banner_item align-items-center" style="background-image:url(images/banner_2.jpg)">
-                    <div class="banner_category">
-                        <a href="aksCategories.html">ACCESSORIES</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="banner_item align-items-center" style="background-image:url(images/banner_3.jpg)">
-                    <div class="banner_category">
-                        <a href="manCategories.html">MEN</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- NEW ARRIVALS -->
-
-<div class="new_arrivals">
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <div class="section_title new_arrivals_title">
-                    <h2>NEW ARRIVALS</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col text-center">
-                <div class="new_arrivals_sorting">
-                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">ALL</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">WOMEN</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">ACCESSORIES</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">MEN</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-    <div class="col">
-        <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
-
+    <div class="grid grid-4">
+        <?php if (!empty($products) && is_array($products)): ?>
             <?php foreach ($products as $product): ?>
-                <div class="product-item <?= esc($product['category_slug']); ?>">
-                    <div class="product product_filter">
-
-                        <div class="product_image">
-                            <img src="<?= base_url($product['image']); ?>" alt="<?= esc($product['name']); ?>">
-                        </div>
-
-                        <div class="favorite"></div>
-
-                        <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center">
-                            <span>New</span>
-                        </div>
-
-                        <div class="product_info">
-                            <h6 class="product_name">
-                                <a href="<?= base_url('product/' . $product['slug']); ?>">
-                                    <?= esc($product['name']); ?>
-                                </a>
-                            </h6>
-
-                            <div class="product_price">
-                                <?= number_format($product['price'], 0, ',', '.'); ?> ₺
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="red_button add_to_cart_button">
-                        <a href="<?= base_url('product/' . $product['slug']); ?>">Buy Now</a>
+                <div class="card-product">
+                    <a href="<?= base_url('shop/' . $product['slug']); ?>" class="card-img-wrap">
+                        <?php $img = !empty($product['image']) ? $product['image'] : 'https://via.placeholder.com/300x400'; ?>
+                        <img src="<?= base_url($img); ?>" alt="<?= esc($product['name']); ?>">
+                    </a>
+                    <div>
+                        <h3 class="card-title">
+                            <a href="<?= base_url('shop/' . $product['slug']); ?>"><?= esc($product['name']); ?></a>
+                        </h3>
+                        <div class="card-price"><?= format_rupiah($product['price']); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php else: ?>
+            <div style="grid-column: 1 / -1; text-align: center; color: #999;">
+                No new arrivals at the moment.
+            </div>
+        <?php endif; ?>
+    </div>
 
-        </div>
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="<?= base_url('shop') ?>" class="btn btn-secondary">View All</a>
     </div>
 </div>
 
-    </div>
-</div>
-
-<!-- REQUIRED ON EVERY PAGE -->
-<!-- Advantages -->
-
-<div class="benefit">
+<!-- Benefits Section -->
+<div class="section" style="background-color: var(--color-bg-alt);">
     <div class="container">
-        <div class="row benefit_row">
-            <div class="col-lg-3 benefit_col">
-                <div class="benefit_item d-flex flex-row align-items-center">
-                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
-                    <div class="benefit_content">
-                        <h6>Free Shipping</h6>
-                        <p>Free shipping on orders over 100 ₺.</p>
-                    </div>
-                </div>
+        <div class="grid grid-4" style="text-align: center;">
+            <div>
+                <h6 style="margin-bottom: 5px;">Free Shipping</h6>
+                <p style="font-size: 13px;">On orders over 100 ₺</p>
             </div>
-            <div class="col-lg-3 benefit_col">
-                <div class="benefit_item d-flex flex-row align-items-center">
-                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                    <div class="benefit_content">
-                        <h6>FAST DELIVERY</h6>
-                        <p>Your order will arrive as quickly as possible.</p>
-                    </div>
-                </div>
+            <div>
+                <h6 style="margin-bottom: 5px;">Fast Delivery</h6>
+                <p style="font-size: 13px;">Express options available</p>
             </div>
-            <div class="col-lg-3 benefit_col">
-                <div class="benefit_item d-flex flex-row align-items-center">
-                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
-                    <div class="benefit_content">
-                        <h6>45-Day Return</h6>
-                        <p>You can return within 45 days.</p>
-                    </div>
-                </div>
+            <div>
+                <h6 style="margin-bottom: 5px;">Easy Returns</h6>
+                <p style="font-size: 13px;">45-day money back</p>
             </div>
-            <div class="col-lg-3 benefit_col">
-                <div class="benefit_item d-flex flex-row align-items-center">
-                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
-                    <div class="benefit_content">
-                        <h6>Every Day of the Week</h6>
-                        <p>08:00 - 21:00</p>
-                    </div>
-                </div>
+            <div>
+                <h6 style="margin-bottom: 5px;">24/7 Support</h6>
+                <p style="font-size: 13px;">Contact us anytime</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Newsletter -->
-
-<div class="newsletter">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-                    <h4>Newsletter</h4>
-                    <p>Subscribe to our newsletter and get 20% off your first purchase.</p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <form action="post">
-                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-                        <input id="newsletter_email" type="email" placeholder="Email" required="required" data-error="Valid email is required.">
-                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">Subscribe</button>
+<!-- News Teaser -->
+<div class="container section">
+    <div class="section-title">
+        <h2>The Journal</h2>
+    </div>
+    <div class="grid grid-3" style="gap: 40px;">
+        <?php if (!empty($news) && is_array($news)): ?>
+            <?php foreach (array_slice($news, 0, 3) as $item): ?>
+                <a href="<?= base_url('news/' . ($item['slug'] ?? '#')); ?>" style="display: block; position: relative;">
+                    <div style="background: #f5f5f5; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px;">
+                        <?php $img = !empty($item['image']) ? $item['image'] : 'images/banner_1.jpg'; ?>
+                        <img src="<?= base_url($img); ?>" alt="<?= esc($item['title']); ?>"
+                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
                     </div>
-                </form>
+                    <div>
+                        <div style="font-size: 11px; text-transform: uppercase; color: #999; margin-bottom: 8px;">
+                            <?= date('F j, Y', strtotime($item['created_at'])); ?>
+                        </div>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 10px; line-height: 1.4; color: #000; font-weight: 500;">
+                            <?= esc($item['title']); ?>
+                        </h3>
+                        <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px;">
+                            <?= substr(strip_tags($item['content']), 0, 80) . '...'; ?>
+                        </p>
+                        <div
+                            style="font-size: 12px; font-weight: 600; text-transform: uppercase; text-decoration: underline; color: #000;">
+                            Read Story</div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div style="grid-column: 1 / -1; text-align: center;">
+                <p style="margin-bottom: 20px; color: #666;">Read the latest updates and style guides.</p>
+                <a href="<?= base_url('news') ?>" class="btn btn-secondary">Read News</a>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
-    </div>
- 
-
-<!-- NEWS -->
-<section class="news-section">
-  <h2 class="news-title">NEWS</h2>
-  <div class="news-slider-container">
-    <div class="slider">
-      <!-- Hidden radio inputs for slider control -->
-      <input type="radio" name="slider" id="slide1" checked>
-      <input type="radio" name="slider" id="slide2">
-      <input type="radio" name="slider" id="slide3">
-      <input type="radio" name="slider" id="slide4">
-
-      <div class="slides">
-        <div class="slide s1">
-          <img src="background-image:url(images/example3.jpg)" alt="Slide 1">
-          <div class="slide-logo">Song of the Welkin Moon</div>
-        </div>
-        <div class="slide s2">
-          <img src="background-image:url(images/example3.jpg)" alt="Slide 2">
-          <div class="slide-logo">Song of the Welkin Moon</div>
-        </div>
-        <div class="slide s3">
-          <img src="background-image:url(images/example3.jpg" alt="Slide 3">
-         <div class="slide-logo">Song of the Welkin Moon</div>
-        </div>
-        <div class="slide s4">
-          <img src="background-image:url(images/banner_1.jp0)"alt="Slide 4">
-          <div class="slide-logo">Song of the Welkin Moon</div>
-        </div>
-      </div>
-
-      <div class="slider-dots">
-        <label for="slide1" class="dot"></label>
-        <label for="slide2" class="dot"></label>
-        <label for="slide3" class="dot"></label>
-        <label for="slide4" class="dot"></label>
-      </div>
-    </div>
-
-    <div class="news-list">
-      <h3 class="latest-title">Latest</h3>
-      <ul>
-        <li><a href="#">Cutscene Animation: "End of the Story" | Genshin Impact</a><span>Oct 30, 2025</span></li>
-        <li><a href="#">Story Teaser: Reflection of the Moon | Genshin Impact</a><span>Oct 29, 2025</span></li>
-        <li><a href="#">Miliastra Wonderland Trailer: "Of Dreams and Inspiration" | Genshin Impact</a><span>Oct 29, 2025</span></li>
-        <li><a href="#">Cutscene Animation: "Waning Moon, Oh Lifeless Damsel" | Genshin Impact</a><span>Oct 28, 2025</span></li>
-        <li><a href="#">Cutscene Animation: "The Hunt Beneath the Silver Moon" | Genshin Impact</a><span>Oct 27, 2025</span></li>
-      </ul>
-      <a href="#" class="more-link">+ More</a>
-    </div>
-  </div>
-</section>
+</div>
 
 <?= $this->endSection() ?>

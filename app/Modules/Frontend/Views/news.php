@@ -1,33 +1,42 @@
-<?= $this->extend('Frontend\Views\Templates\Content') ?>
+<?= $this->extend('Frontend\Templates\Content') ?>
 
-<!-- Load Slider Section -->
-<?= $this->section('slider') ?>
-<?= $this->endSection() ?>
 <?= $this->section('content') ?>
-<div class="news">
-  <div class="container">
-    <div class="newsTitle">
-      <span class="newsIcon"></span>
-      <h3>NEWS</h3>
-      <span class="newsIcon"></span>
-    </div>
-    <div class="new_content clear">
-      <div class="newsPic lazyloaded">
-        <img src="https://img-static.mihoyo.com/communityweb/upload/ad7e69b5c1fe814a0d94a09b17b49823.png?x-oss-process=image/resize,m_fixed,h_242,w_401/quality,Q_90/format,webp"
-             alt="newsPic" class="newPicImg"/>
+
+<div class="container section">
+  <div class="section-title">
+    <h2>The Journal</h2>
+    <p>Stories, style updates, and news.</p>
+  </div>
+
+  <div class="grid grid-3" style="gap: 40px;">
+    <?php if (!empty($news) && is_array($news)): ?>
+      <?php foreach ($news as $item): ?>
+        <a href="<?= base_url('news/' . $item['slug']); ?>" style="display: block; group: hover;">
+          <div style="background: #f5f5f5; aspect-ratio: 3/2; overflow: hidden; margin-bottom: 20px;">
+            <?php $img = !empty($item['image']) ? $item['image'] : 'https://via.placeholder.com/600x400'; ?>
+            <img src="<?= base_url($img); ?>" alt="<?= esc($item['title']); ?>"
+              style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+          </div>
+          <div stye="padding-right: 20px;">
+            <div style="font-size: 11px; text-transform: uppercase; color: #999; margin-bottom: 8px;">
+              <?= date('F j, Y', strtotime($item['created_at'])); ?>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 12px; line-height: 1.4;"><?= esc($item['title']); ?></h3>
+            <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px;">
+              <?= substr(strip_tags($item['content']), 0, 100) . '...'; ?>
+            </p>
+            <span class="btn-text"
+              style="font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: underline;">Read
+              Story</span>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: #999;">
+        <p>No articles available at the moment.</p>
       </div>
-      <div class="newsContent">
-        <h4 class="contentTitle">Latest</h4>
-        <ul class="news-list">
-          <li><a href="news-detail.html">Lorem Ipsum" | Genshin Impact</a><span class="time">Oct 30, 2025</span></li>
-          <li><a href="news-detail.html">Story Teasert</a><span class="time">Oct 29, 2025</span></li>
-          <li><a href="news-detail.html">Miliastra Wonderland| Genshin Impact</a><span class="time">Oct 29, 2025</span></li>
-          <li><a href="news-detail.html">Cutscene Animation: | Genshin Impact</a><span class="time">Oct 28, 2025</span></li>
-          <li><a href="news-detail.html">Cutscene Animation | Genshin Impact</a><span class="time">Oct 27, 2025</span></li>
-        </ul>
-        <a href="more-news.html" class="newsMoreBtn">More</a>
-      </div>
-    </div>
+    <?php endif; ?>
   </div>
 </div>
+
 <?= $this->endSection() ?>
